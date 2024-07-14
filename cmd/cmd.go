@@ -958,7 +958,6 @@ type runOptions struct {
 	WordWrap    bool
 	Format      string
 	System      string
-	Template    string
 	Images      []api.ImageData
 	Options     map[string]interface{}
 	MultiModal  bool
@@ -1152,7 +1151,6 @@ func generate(cmd *cobra.Command, opts runOptions) error {
 		Images:    opts.Images,
 		Format:    opts.Format,
 		System:    opts.System,
-		Template:  opts.Template,
 		Options:   opts.Options,
 		KeepAlive: opts.KeepAlive,
 	}
