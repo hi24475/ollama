@@ -363,8 +363,6 @@ func (s *Server) EmbedHandler(c *gin.Context) {
 		embeddings.Embedding[i] = normalize(e)
 	}
 
-	slog.Info("prompt n", "n", embeddings.PromptN)
-
 	resp := api.EmbedResponse{
 		Model:           req.Model,
 		Embeddings:      embeddings.Embedding,
