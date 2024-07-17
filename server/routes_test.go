@@ -430,7 +430,7 @@ func TestCase(t *testing.T) {
 				})
 
 				if w.Code != http.StatusBadRequest {
-					t.Fatalf("expected status 500 got %d", w.Code)
+					t.Fatalf("expected status 400 got %d", w.Code)
 				}
 
 				if !bytes.Equal(w.Body.Bytes(), expect) {
@@ -445,7 +445,7 @@ func TestCase(t *testing.T) {
 				})
 
 				if w.Code != http.StatusBadRequest {
-					t.Fatalf("expected status 500 got %d", w.Code)
+					t.Fatalf("expected status 400 got %d", w.Code)
 				}
 
 				if !bytes.Equal(w.Body.Bytes(), expect) {
