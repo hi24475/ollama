@@ -996,15 +996,6 @@ func (s *Server) IsServerKeyPublicKey(c *gin.Context) bool {
 			return false
 		}
 
-		timestamp, err := time.Parse(time.RFC3339, c.GetHeader("Timestamp"))
-		if err != nil {
-			return false
-		}
-
-		if time.Since(timestamp) > time.Minute {
-			return false
-		}
-
 		if bytes.Equal(serverPublicKey.Marshal(), clientPublicKey.Marshal()) {
 			return true
 		}
