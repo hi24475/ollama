@@ -15,6 +15,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -525,5 +526,43 @@ func TestNormalize(t *testing.T) {
 				t.Errorf("Vector %v is not normalized", tc.input)
 			}
 		})
+	}
+}
+
+func TestIsServerKeyPublicKey(t *testing.T) {
+	t.Setenv("HOME", t.TempDir())
+	
+	// Setup your gin context and request as needed
+	gin.SetMode(gin.TestMode)
+
+	req, _ := http.NewRequest(http.MethodGet, "/your-endpoint", nil)
+	ctx, _ := gin.CreateTestContext(httptest.NewRecorder())
+	ctx.Request = req
+
+	// Mock the Authorization header
+	authHeader, err := api.Authorization(context.Background(), req)
+	if err != nil {
+		t.Fatalf("Failed to create authorization header: %v", err)
+	}
+	req.Header.Set("Authorization", authHeader)
+
+	server := &Server{}
+	isValid := server.IsServerKeyPublicKey(ctx)
+	if !isValid {
+		t.Errorf("Expected IsServerKeyPublicKey to return true")
+	}
+}
+
+func TestAuthorization(t *testing.T) {
+	t.Setenv("HOME", t.TempDir())
+
+	req, _ := http.NewRequest(http.MethodGet, "/your-endpoint", nil)
+	authHeader, err := api.Authorization(context.Background(), req)
+	if err != nil {
+		t.Fatalf("Failed to create authorization header: %v", err)
+	}
+	
+	if authHeader == "" {
+		t.Errorf("Expected non-empty authorization header")
 	}
 }
